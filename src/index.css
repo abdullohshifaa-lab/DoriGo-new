@@ -1,0 +1,107 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #f4faf8;
+  --card: rgba(255, 255, 255, 0.78);
+  --card-solid: #ffffff;
+  --text: #0c2a25;
+  --muted: #5b7a74;
+  --border: rgba(15, 77, 67, 0.1);
+}
+
+.dark {
+  --bg: #07130f;
+  --card: rgba(18, 36, 31, 0.72);
+  --card-solid: #0e1f1a;
+  --text: #e8f6f2;
+  --muted: #8fb0a8;
+  --border: rgba(255, 255, 255, 0.08);
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  transition: background-color 0.4s ease, color 0.4s ease;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, .font-display {
+  font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+  letter-spacing: -0.02em;
+}
+
+@layer components {
+  .glass {
+    background: var(--card);
+    backdrop-filter: blur(18px) saturate(160%);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+    border: 1px solid var(--border);
+  }
+  .card {
+    @apply glass rounded-3xl shadow-soft;
+  }
+  .text-muted {
+    color: var(--muted);
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl px-6 py-4 font-semibold text-white
+      bg-gradient-to-br from-brand-400 to-brand-600 shadow-lg shadow-brand-500/30
+      transition-shadow hover:shadow-xl hover:shadow-brand-500/40 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  .btn-urgent {
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl px-6 py-4 font-semibold text-white
+      bg-gradient-to-br from-urgent-400 to-urgent-600 shadow-lg shadow-urgent-500/30
+      transition-shadow hover:shadow-xl hover:shadow-urgent-500/40;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl px-5 py-3 font-semibold glass
+      transition-colors hover:bg-brand-500/10;
+  }
+  .input {
+    @apply w-full rounded-2xl px-4 py-4 text-base outline-none transition-all;
+    background: var(--card-solid);
+    border: 1.5px solid var(--border);
+    color: var(--text);
+  }
+  .input:focus {
+    border-color: #12b594;
+    box-shadow: 0 0 0 4px rgba(18, 181, 148, 0.18);
+  }
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold;
+  }
+}
+
+.shimmer {
+  position: relative;
+  overflow: hidden;
+  background: rgba(18, 181, 148, 0.1);
+}
+.shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  animation: shimmer-move 1.4s infinite;
+}
+@keyframes shimmer-move {
+  100% { transform: translateX(100%); }
+}
+
+/* scrollbar */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-thumb { background: rgba(18, 181, 148, 0.35); border-radius: 8px; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
